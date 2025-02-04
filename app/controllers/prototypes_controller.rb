@@ -4,7 +4,7 @@ class PrototypesController < ApplicationController
   before_action :contributor_confirmation, only: [:edit, :update, :destroy]
 
   def index
-    @prototypes = Prototype.all
+    @prototypes = Prototype.includes(:user)
   end
 
   def new
@@ -38,7 +38,8 @@ class PrototypesController < ApplicationController
   end
 
   def update
-    if @prototype = Prototype.find(params[:id])
+    @prototype = Prototype.find(params[:id])  
+    if
       @prototype.update(prototype_params)
       redirect_to prototype_path(@prototype)
     else
